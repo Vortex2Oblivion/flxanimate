@@ -415,6 +415,9 @@ class FlxAnimateFrames extends FlxAtlasFrames
     {
         var hugeFrames:FlxAtlasFrames = new FlxAtlasFrames(null);
         var separatedJS = Assets.getText(Path).split("\n");
+        var spriteSheetReg = ~/new createjs.SpriteSheet/;
+        
+        
         var lines:Array<String> = [];
         for (line in separatedJS)
         {
@@ -440,11 +443,12 @@ class FlxAnimateFrames extends FlxAtlasFrames
             var json = jsons[i];
             var bitmap = FlxG.bitmap.add(Assets.getBitmapData((Image == null) ? '${imagePath.join("/")}/${json.images[0]}' : Image));
             var frames = new FlxAtlasFrames(bitmap);
+            var initialFrame = [json.frames[0][5], json.frames[0][6]];
             for (frame in json.frames)
             {
                 var frameRect:FlxRect = new FlxRect(frame[0], frame[1], frame[2], frame[3]);
                 var sourceSize:FlxPoint = new FlxPoint(frameRect.width, frameRect.height);
-                var offset = new FlxPoint(-frame[5], -frame[6]);
+                var offset = new FlxPoint(-frame[5] + initialFrame[0], -frame[6] + initialFrame[1]);
                 frames.addAtlasFrame(frameRect, sourceSize, offset, name + Std.string(times));
                 times++;
             }
