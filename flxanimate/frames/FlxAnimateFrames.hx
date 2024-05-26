@@ -243,19 +243,19 @@ class FlxAnimateFrames extends FlxAtlasFrames
 		return frames;
 	}
     /**
-     *
+     * 
      * @param Path the Json in specific, can be the path of it or the actual json
      * @param Image the image which the file is referencing **WARNING:** if you set the path as a json, it's obligatory to set the image!
      * @return A new instance of `FlxAtlasFrames`
      */
     public static function fromJson(Path:FlxJson, ?Image:FlxGraphicAsset):FlxAtlasFrames
     {
-        if ((Path is String) && !Assets.exists(Path))
+        if (Path is String && !Assets.exists(Path))
             return null;
         var data:JsonNormal = (Path is String) ? haxe.Json.parse(Assets.getText(Path)) : Path;
         if (Image == null)
         {
-            if ((Path is String))
+            if (Path is String)
             {
                 var splitDir = Path.split("/");
                 splitDir.pop();
@@ -305,7 +305,7 @@ class FlxAnimateFrames extends FlxAtlasFrames
      * @param Image (Optional) the Image
      * @return Cute little Frames to use ;)
      */
-    public static function fromEdgeAnimate(Path:String, ?Image:FlxGraphicAsset):FlxAtlasFrames
+    public inline static function fromEdgeAnimate(Path:String, ?Image:FlxGraphicAsset):FlxAtlasFrames
     {
         return fromJson((StringTools.startsWith(Path, "{")) ? haxe.Json.parse(Path) : Path, Image);
     }
