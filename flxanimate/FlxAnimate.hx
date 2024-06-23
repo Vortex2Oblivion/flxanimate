@@ -262,11 +262,14 @@ class FlxAnimate extends FlxSprite
 
 	function limbOnScreen(limb:FlxFrame, m:FlxMatrix, ?Camera:FlxCamera)
 	{
+		if (FlxG.state is toolbox.CharacterCreator){
+			return true;
+		}
 		if (Camera == null)
 			Camera = FlxG.camera;
 
-		var minX:Float = (x + m.tx - offset.x - scrollFactor.x * Camera.scroll.x) * Camera.zoom;
-		var minY:Float = (y + m.ty - offset.y - scrollFactor.y * Camera.scroll.y) * Camera.zoom;
+		var minX:Float = (x + m.tx - offset.x - scrollFactor.x * Camera.scroll.x);
+		var minY:Float = (y + m.ty - offset.y - scrollFactor.y * Camera.scroll.y);
 		
 		var radiusX:Float =  limb.frame.width * Math.max(1, m.a);
 		var radiusY:Float = limb.frame.height * Math.max(1, m.d);
